@@ -6,7 +6,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryStreamedHydration } from '@tanstack/react-query-next-experimental';
 
 const ReactQueryDevtoolsProduction = lazy(() =>
-  import('@tanstack/react-query-devtools/production').then((d) => ({
+  import('@tanstack/react-query-devtools/src/production').then((d) => ({
     default: d.ReactQueryDevtools,
   })),
 );

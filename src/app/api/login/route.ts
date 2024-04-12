@@ -8,30 +8,29 @@ const dbInfo = {
   database: 'login_info',
 };
 
-export async function POST(req: NextRequest) {
-  const data = await req.json();
-  const connection = await mysql.createConnection(dbInfo);
+// export async function POST(req: NextRequest) {
+//   const data = await req.json();
+//   const connection = await mysql.createConnection(dbInfo);
 
-  const { login_id, login_password } = data;
+//   const { login_id, login_password } = data;
 
-  if (!login_id || !login_password) {
-    return NextResponse.json({ result: false });
-  }
+//   if (!login_id || !login_password) {
+//     return NextResponse.json({ result: false });
+//   }
 
-  const [rows, fields] = await connection.query(
-    'SELECT user_name FROM logininfo WHERE login_id = ? AND login_password = ?', // loginId와 password로 사용자 검증
-    [login_id, login_password],
-  );
+//   const [rows, fields] = await connection.query(
+//     'SELECT user_name FROM logininfo WHERE login_id = ? AND login_password = ?', // loginId와 password로 사용자 검증
+//     [login_id, login_password],
+//   );
 
-  console.log(rows);
+//   console.log(rows);
 
-  await connection.end();
+//   await connection.end();
 
-  if (!rows.length) {
-    console.log('dsflajdflkasdjflkas');
+//   if (rows.length === 0) {
 
-    return NextResponse.json({ result: false });
-  }
+//     return NextResponse.json({ result: false });
+//   }
 
-  return NextResponse.json({ result: true, user_name: rows[0].user_name });
-}
+//   return NextResponse.json({ result: true, user_name: rows[0].user_name });
+// }
