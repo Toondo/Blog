@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import GlobalHeader from '~/core/GlobalHeader';
 import StyledComponentsRegistry from '~/libs/registry';
+import ReactQueryProvider from '~/providers/reactQueryProvider';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -15,12 +16,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <StyledComponentsRegistry>
-        <body>
-          <GlobalHeader />
-          {children}
-        </body>
-      </StyledComponentsRegistry>
+      <body>
+        <ReactQueryProvider>
+          <StyledComponentsRegistry>
+            <GlobalHeader />
+            {children}
+          </StyledComponentsRegistry>
+        </ReactQueryProvider>
+      </body>
     </html>
   );
 }
