@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Header, Logo, Menu, MenuBar, DropdownContent, Notification, LoginButton } from './style';
+import LoginMenu from './login';
 
 const GlobalHeader = () => {
   return (
@@ -28,11 +29,9 @@ const GlobalHeader = () => {
             <Image src={`/icon/notification.png`} alt="notification" width={30} height={30} />
           </Link>
         </Notification>
-        <LoginButton>
-          <Link href="/login">
-            <Image src={`/icon/user.png`} alt="login" width={30} height={27} />
-          </Link>
-        </LoginButton>
+        <LoginMenu isLogin={false}>
+          <Image src={`/icon/user.png`} alt="login" width={30} height={27}></Image>
+        </LoginMenu>
       </Menu>
     </Header>
   );

@@ -2,7 +2,7 @@ import Example from '&/example/Client';
 import { fetchActors } from '~/requests/actors';
 
 export default async function Home() {
-  const actors = await fetchActors();
+  // const actors = await fetchActors();
 
   return (
     <main>
