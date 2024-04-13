@@ -1,5 +1,6 @@
-import Example from '&/example/Client';
-import { fetchActors } from '~/requests/actors';
+// import { fetchActors } from '~/requests/actors';
+
+// import Example from '&/example/Client';
 
 export default async function Home() {
   // const actors = await fetchActors();

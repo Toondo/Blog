@@ -11,7 +11,7 @@ const dbInfo = {
 export async function GET() {
   const connection = await mysql.createConnection(dbInfo);
 
-  const [rows, fields] = await connection.execute('SELECT * FROM sakila.actor');
+  const [rows] = await connection.execute('SELECT * FROM sakila.actor');
 
   await connection.end();
 
@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
 
   const { first_name, last_name } = data;
 
-  const [result, fields] = await connection.query('INSERT INTO sakila.actor (first_name, last_name) VALUES (?, ?)', [
+  const [fields] = await connection.query('INSERT INTO sakila.actor (first_name, last_name) VALUES (?, ?)', [
     first_name,
     last_name,
   ]);

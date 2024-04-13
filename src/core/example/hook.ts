@@ -1,14 +1,24 @@
 import { addActor } from '~/requests/addActor';
 
-export const useAddActor = (firstName: string, lastName: string) => {
-  if (!firstName || !lastName) {
-    return alert('お名前を確認してください！');
-  }
+export const useAddActor = () => {
+  const addActorHandler = async (firstName: string, lastName: string) => {
+    if (!firstName || !lastName) {
+      alert('お名前を確認してください！');
+      return;
+    }
 
-  const result = addActor(firstName, lastName);
-  if (!result) {
-    return alert('登録ができませんでした！');
-  }
+    try {
+      const result = await addActor(firstName, lastName);
+      if (!result) {
+        alert('登録ができませんでした！');
+        return;
+      }
 
-  return alert('登録完了！');
+      alert('登録完了！');
+    } catch (error) {
+      alert('エラーが発生しました！');
+    }
+  };
+
+  return addActorHandler;
 };
