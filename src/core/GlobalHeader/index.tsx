@@ -1,9 +1,10 @@
 'use client';
 
-import Link from 'next/link';
 import Image from 'next/image';
-import { Header, Logo, Menu, MenuBar, DropdownContent, Notification, LoginButton } from './style';
+import Link from 'next/link';
+
 import LoginMenu from './login';
+import { Header, Logo, Menu, MenuBar, DropdownContent, Notification } from './style';
 
 const GlobalHeader = () => {
   return (

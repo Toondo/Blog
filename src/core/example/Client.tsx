@@ -1,11 +1,17 @@
 'use client';
 
 import { useState } from 'react';
+
 import { useAddActor } from './hook';
 
 export default function Example() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+
+  const addActor = useAddActor();
+  const handleAddActorClick = () => {
+    addActor(firstName, lastName);
+  };
 
   return (
     <div>
@@ -18,7 +24,7 @@ export default function Example() {
         <label>Last Name:</label>
         <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} />
       </div>
-      <button onClick={() => useAddActor(firstName, lastName)}>Add Actor</button>
+      <button onClick={handleAddActorClick}>Add Actor</button>
     </div>
   );
 }

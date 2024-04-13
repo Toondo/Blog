@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=production
+    # 환경변수 파일 사용 시 아래 주석을 해제합니다.
+    # env_file:
+    #   - ./.env
+    command: yarn start
