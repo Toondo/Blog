@@ -16,6 +16,7 @@ jobs:
           command: |
             yarn lint
             yarn lint:ts
+            yarn lint:st
       - run:
           name: Build
           command: yarn build
@@ -30,16 +31,16 @@ jobs:
             - .docusaurus
 
   deploy:
-  docker:
-    - image: cimg/base:stable
-  steps:
-    - attach_workspace:
-        at: .
-    - run:
-        name: Build and push Docker image
-        command: |
-          docker build -t myapp:$CIRCLE_WORKFLOW_ID .
-          docker push myapp:$CIRCLE_WORKFLOW_ID
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Build and push Docker image
+          command: |
+            docker build -t myapp:$CIRCLE_WORKFLOW_ID .
+            docker push myapp:$CIRCLE_WORKFLOW_ID
 
 workflows:
   version: 2
