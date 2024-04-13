@@ -9,7 +9,6 @@ jobs:
       - image: cimg/node:20.9.0
     steps:
       - checkout:
-          path: ./
       - node/install-packages:
           pkg-manager: yarn
       - run:
