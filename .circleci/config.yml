@@ -31,21 +31,8 @@ jobs:
           name: Build Project
           command: yarn build
       - run:
-          name: Start Server
-          command: yarn start
-      - run:
-          name: Test Deployment
-          command: |
-            sleep 10 # 서버가 완전히 시작될 때까지 잠시 대기
-            curl --fail http://localhost:3000 || exit 1
-      - persist_to_workspace:
-          root: .
-          paths:
-            - ./public
-            - ./src
-            - ./build
-            - ./dist
-            - ./.next
+          name: Start Server and Test Deployment
+          command: yarn start:test
 
 workflows:
   version: 2

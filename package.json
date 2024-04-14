@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "start:test": "next start & sleep 10 ; kill $!",
     "lint": "next lint",
     "lint:ts": "yarn tsc -p . --noEmit",
     "lint:st": "stylelint 'src/**/*.{css,ts,tsx}'",
