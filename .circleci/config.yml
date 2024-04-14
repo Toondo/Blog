@@ -4,7 +4,7 @@ orbs:
   node: circleci/node@5.0.2
 
 jobs:
-  build:
+  build_and_test:
     docker:
       - image: cimg/node:20.9.0
     steps:
@@ -31,8 +31,13 @@ jobs:
           name: Build Project
           command: yarn build
       - run:
-          name: Test Deployment
+          name: Start Server
           command: yarn start
+      - run:
+          name: Test Deployment
+          command: |
+            sleep 10 # 서버가 완전히 시작될 때까지 잠시 대기
+            curl --fail http://localhost:3000 || exit 1
       - persist_to_workspace:
           root: .
           paths:
@@ -44,6 +49,6 @@ jobs:
 
 workflows:
   version: 2
-  build_and_test:
+  build_and_deploy:
     jobs:
-      - build
+      - build_and_test
