@@ -1,6 +1,8 @@
-import { fetchLoginCheck, fetchLoginCheckKey } from './../../requests/login';
 import { useQuery } from '@tanstack/react-query';
+
 import { LoginSuccess } from '~/requests/login';
+
+import { fetchLoginCheck, fetchLoginCheckKey } from './../../requests/login';
 
 interface LoginProps {
   userName: string;

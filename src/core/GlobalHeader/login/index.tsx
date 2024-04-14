@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
+
 import { LoginMenuContainer, DropdownMenu, LoginButton, SingUpButton } from './style';
 
 interface LoginProps {
@@ -26,7 +27,7 @@ const LoginMenu = ({ isLogin, children }: LoginProps) => {
                 /* 로그아웃 로직 */
               }}
             >
-              로그아웃
+              로그아웃{showDropdown}
             </button>
           </div>
         ) : (

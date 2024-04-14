@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import { styled } from '~/libs/styled';
 
 export const Header = styled.div`
   height: 50px;

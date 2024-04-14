@@ -1,10 +1,12 @@
 'use client';
 
-import { useMutation } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
+// import { useMutation } from '@tanstack/react-query';
+// import { useRouter } from 'next/navigation';
+import React, { useState } from 'react';
+
 import { fetchLoginCheck } from '~/requests/login';
-import { useFetchLoginCheck } from './hooks';
+
+// import { useFetchLoginCheck } from './hooks';
 import { LoginForm } from './style'; // 스타일 임포트
 
 const LoginPage = () => {
@@ -12,7 +14,7 @@ const LoginPage = () => {
   const [userPassword, setPassword] = useState('');
   //   const [click, setClick] = useState(false);
   //   const [data, query] = useFetchLoginCheck({ userName, userPassword });
-  const router = useRouter();
+  //   const router = useRouter();
   const handleLogin = async (userName: string, userPassword: string) => {
     // 로그인 요청 보내기
     const result = await fetchLoginCheck(userName, userPassword);

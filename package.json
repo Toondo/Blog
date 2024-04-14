@@ -6,7 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "start:test": "next start & sleep 10 ; kill $!",
+    "lint": "next lint",
+    "lint:ts": "yarn tsc -p . --noEmit",
+    "lint:st": "stylelint 'src/**/*.{css,ts,tsx}'",
+    "lint:fix": "yarn lint --fix && lint:st --fix",
+    "lint:format": "prettier --write 'src/**/*.{ts,tsx}'"
   },
   "dependencies": {
     "next": "14.1.0",
@@ -37,5 +42,9 @@
     "stylelint-config-recommended-scss": "14.0.0",
     "stylelint-config-standard": "36.0.0",
     "typescript": "5"
+  },
+  "volta": {
+    "node": "20.9.0",
+    "yarn": "1.4.0"
   }
 }

@@ -1,0 +1,41 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@5.0.2
+
+jobs:
+  build_and_test:
+    docker:
+      - image: cimg/node:20.9.0
+    steps:
+      - checkout
+      - run:
+          name: Install Volta
+          command: |
+            curl https://get.volta.sh | bash
+            echo 'export VOLTA_HOME="$HOME/.volta"' >> $BASH_ENV
+            echo 'export PATH="$VOLTA_HOME/bin:$PATH"' >> $BASH_ENV
+            source $BASH_ENV
+            volta install node@20.9.0
+            volta install yarn@1.4.0
+      - run:
+          name: Install Dependencies
+          command: yarn install --frozen-lockfile
+      - run:
+          name: Lint Code
+          command: yarn lint
+      - run:
+          name: TypeScript Linting
+          command: yarn lint:ts
+      - run:
+          name: Build Project
+          command: yarn build
+      - run:
+          name: Start Server and Test Deployment
+          command: yarn start:test
+
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - build_and_test
