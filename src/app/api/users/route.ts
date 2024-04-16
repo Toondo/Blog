@@ -9,6 +9,8 @@ const dbInfo = {
   database: 'next-db',
 };
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   let connection;
   let result;
