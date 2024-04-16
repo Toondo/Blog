@@ -2,6 +2,8 @@ import { fetchActors } from '~/requests/users';
 
 // import Example from '&/example/Client';
 
+export const dynamic = 'force-dynamic';
+
 export default async function Home() {
   const actors = await fetchActors();
 

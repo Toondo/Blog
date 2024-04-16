@@ -9,6 +9,8 @@ import { fetchLoginCheck } from '~/requests/login';
 // import { useFetchLoginCheck } from './hooks';
 import { LoginForm } from './style'; // 스타일 임포트
 
+export const dynamic = 'force-dynamic';
+
 const LoginPage = () => {
   const [userName, setUsername] = useState('');
   const [userPassword, setPassword] = useState('');
