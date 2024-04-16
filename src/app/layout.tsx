@@ -6,6 +6,8 @@ import ReactQueryProvider from '~/providers/reactQueryProvider';
 
 import './globals.css';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'MyBlog',
   description: 'Mindae Blog',

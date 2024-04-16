@@ -1,41 +1,71 @@
-import mysql, { RowDataPacket } from 'mysql2/promise';
+import { randomBytes } from 'crypto';
+
+import bcrypt from 'bcryptjs';
+import { serialize as serializeCookie } from 'cookie';
+import mysql, { FieldPacket, RowDataPacket } from 'mysql2/promise';
 import { NextRequest, NextResponse } from 'next/server';
+
+interface User extends RowDataPacket {
+  user_name: string;
+  password_hash: string;
+}
 
 const dbInfo = {
   host: process.env.NEXT_PUBLIC_DB_HOST,
   user: process.env.NEXT_PUBLIC_DB_USER,
   password: process.env.NEXT_PUBLIC_DB_PASSWORD,
-  database: 'login_info',
+  database: 'next-db',
 };
 
 export async function POST(req: NextRequest) {
   const data = await req.json();
   const connection = await mysql.createConnection(dbInfo);
 
-  const { login_id, login_password } = data;
+  try {
+    const { email, password }: { email: string; password: string } = data;
 
-  if (!login_id || !login_password) {
-    return NextResponse.json({ result: false });
-  }
-
-  const [rows] = await connection.query(
-    'SELECT user_name FROM logininfo WHERE login_id = ? AND login_password = ?', // loginId와 password로 사용자 검증
-    [login_id, login_password],
-  );
-
-  console.log(rows);
-
-  await connection.end();
-
-  if (Array.isArray(rows) && rows.length > 0) {
-    // result가 RowDataPacket[] 타입이고, 요소가 하나 이상 있는 경우
-    const userData = rows[0] as RowDataPacket; // 첫 번째 결과를 RowDataPacket 타입으로 처리
-    if (userData.user_name) {
-      return NextResponse.json({ result: true, user_name: userData.user_name });
+    if (!email || !password) {
+      return NextResponse.json({ result: false, message: 'Login ID and password must not be empty.' });
     }
-  } else {
-    // 예상치 못한 결과 타입이거나 결과가 비어 있는 경우
-    console.log('No user found or unexpected result type.');
-    return NextResponse.json({ result: false });
+
+    const [rows, fields]: [User[], FieldPacket[]] = await connection.query(
+      'SELECT user_name, password_hash FROM Users WHERE email = ?',
+      [email],
+    );
+
+    if (rows.length > 0) {
+      const userData: User = rows[0];
+      const passwordMatch = await bcrypt.compare(password, userData.password_hash);
+      if (passwordMatch) {
+        const sessionId = createSessionId(); // 세션 ID 생성
+        const response = NextResponse.json({ result: true, user_name: userData.user_name });
+        setSessionCookie(response, sessionId); // 쿠키 설정
+        return response;
+      } else {
+        console.log('Field information:', fields);
+        return NextResponse.json({ result: false, message: 'Invalid password' });
+      }
+    } else {
+      console.log('Field information:', fields);
+      return NextResponse.json({ result: false, message: 'User not found' });
+    }
+  } finally {
+    // Ensure the connection is closed even if there is an error
+    await connection.end();
   }
+}
+
+function setSessionCookie(response: NextResponse, sessionId: string) {
+  const cookie = serializeCookie('session', sessionId, {
+    path: 'localhost',
+    httpOnly: false, // 클라이언트 측에서 JS를 통한 접근 금지
+    secure: false, // HTTPS를 통해서만 쿠키 전송
+    sameSite: 'lax',
+    maxAge: 60 * 5,
+  });
+  response.headers.set('Set-Cookie', cookie);
+}
+
+function createSessionId() {
+  return randomBytes(16).toString('hex');
 }

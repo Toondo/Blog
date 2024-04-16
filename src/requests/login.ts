@@ -23,15 +23,15 @@ export const fetchLoginCheckKey = {
   getKey: () => [fetchLoginCheckKey.keyName] as const,
 };
 
-export const fetchLoginCheck = async (userName: string, userPassword: string) => {
+export const fetchLoginCheck = async (userEmail: string, userPassword: string) => {
   const response = await fetcher('/api/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      login_id: userName,
-      login_password: userPassword,
+      email: userEmail,
+      password: userPassword,
     }),
   });
 
