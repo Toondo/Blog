@@ -9,7 +9,7 @@ COPY package.json ./
 COPY yarn.lock ./
 
 # 의존성을 설치합니다.
-RUN yarn install --frozen-lockfile
+RUN yarn install --frozen-lockfile --prodcution
 
 # 필요한 소스 파일들을 작업 디렉토리로 복사합니다.
 # 주의: node_modules와 .next 디렉토리는 복사하지 않습니다. (이들은 .dockerignore 파일에 명시해야 합니다.)

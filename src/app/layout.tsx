@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-
 import GlobalHeader from '~/core/GlobalHeader';
+
 import StyledComponentsRegistry from '~/libs/registry';
 import ReactQueryProvider from '~/providers/reactQueryProvider';
 

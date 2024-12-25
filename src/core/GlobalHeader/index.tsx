@@ -1,40 +1,32 @@
 'use client';
-
-import Image from 'next/image';
-import Link from 'next/link';
-
-import LoginMenu from './login';
-import { Header, Logo, Menu, MenuBar, DropdownContent, Notification } from './style';
+import React, { useState } from 'react';
+import * as Styled from './styled';
+import Logo from './components/Logo';
+import Navigation from './components/Navigation';
+import SearchForm from './components/Search';
+import Share from './components/Share';
 
 const GlobalHeader = () => {
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const handleSearch = (e: any) => {
+    e.preventDefault();
+    console.log('Search:', searchQuery);
+    // 여기에 검색 로직을 구현하세요
+  };
+
   return (
-    <Header>
-      <Menu>
-        <MenuBar>
-          <Image src={`/icon/menu.png`} alt="menu" width={30} height={30} />
-          <DropdownContent>
-            <Link href="#">메뉴 1</Link>
-            <Link href="#">메뉴 2</Link>
-            <Link href="#">메뉴 3</Link>
-          </DropdownContent>
-        </MenuBar>
-        <Link href="/" passHref>
-          <Logo>
-            <Image src={`/icon/logo.png`} alt="DMvelo Logo" width={70} height={20} />
-          </Logo>
-        </Link>
-      </Menu>
-      <Menu>
-        <Notification>
-          <Link href="/notification">
-            <Image src={`/icon/notification.png`} alt="notification" width={30} height={30} />
-          </Link>
-        </Notification>
-        <LoginMenu isLogin={false}>
-          <Image src={`/icon/user.png`} alt="login" width={30} height={27}></Image>
-        </LoginMenu>
-      </Menu>
-    </Header>
+    <Styled.HeaderContainer>
+      <Styled.HeaderContent>
+        <Logo />
+        <Navigation />
+        {/* 검색 및 공유 */}
+        <Styled.SearchShareContainer>
+          <SearchForm searchQuery={searchQuery} setSearchQuery={setSearchQuery} onSearch={handleSearch} />
+          <Share />
+        </Styled.SearchShareContainer>
+      </Styled.HeaderContent>
+    </Styled.HeaderContainer>
   );
 };
 
