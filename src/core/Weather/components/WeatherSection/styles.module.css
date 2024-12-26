@@ -1,0 +1,25 @@
+.mainContainer {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.weatherContent {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 2rem;
+}
+
+.currentHourlyContent {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.weatherCard {
+  background: rgb(240 255 240 / 50%);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
+  padding: 1.5rem;
+  border: 1px solid rgb(0 255 0 / 10%);
+}

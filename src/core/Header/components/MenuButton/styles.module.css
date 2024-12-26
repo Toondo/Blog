@@ -1,0 +1,10 @@
+.menuButton {
+  padding: 0.5rem;
+  border-radius: 9999px;
+  color: #4b5563;
+  transition: all 0.2s;
+}
+
+.menuButton:hover {
+  background-color: #f3f4f6;
+}

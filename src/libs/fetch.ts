@@ -1,14 +1,35 @@
 import { merge } from 'lodash-es';
 
+import { getAPIHost } from '~/domain/Env';
 import { ApplicationError, AuthenticationError } from '~/utils/error';
 
+export interface ClientDataFetchOptions<T = undefined, U = undefined> {
+  key: string;
+  getKeys: (args?: T) => T extends object ? [string, object] : string[];
+  placeHolderData?: U;
+  revalidate?: number;
+  staleTime?: number;
+  gcTime?: string;
+}
+
+const getEndpointWithEnv = (url: string) => {
+  const resultUrl = url.replace(/^\//, '');
+
+  if (resultUrl.match('http(s)*://')) {
+    return resultUrl;
+  }
+
+  return `${getAPIHost()}/${resultUrl}`;
+};
+
 export const fetcher = async (url: string, options?: RequestInit) => {
-  const endpoint = `${process.env.NEXT_PUBLIC_PAGE_HOST}${url}`;
+  const endpoint = getEndpointWithEnv(url);
 
   const defaultOptions = {
-    method: 'get',
+    method: 'GET',
     headers: {
       'X-Requested-With': 'XMLHttpRequest',
+      'Content-Type': 'application/json',
     },
     next: {
       revalidate: 0,
@@ -16,7 +37,6 @@ export const fetcher = async (url: string, options?: RequestInit) => {
   };
 
   const mergeOptions = merge(defaultOptions, options);
-
   try {
     const res = await fetch(endpoint, mergeOptions);
 
@@ -31,7 +51,7 @@ export const fetcher = async (url: string, options?: RequestInit) => {
       }
     }
 
-    return res;
+    return res.json();
   } catch (error) {
     if (error instanceof ApplicationError) {
       console.warn(`Error message: ${error.message}, code: ${error.code}`);

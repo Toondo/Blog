@@ -1,0 +1,55 @@
+.weeklyContainer {
+  height: 100%;
+  background: rgb(240 255 240 / 50%);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
+  padding: 1.5rem;
+  border: 1px solid rgb(0 255 0 / 10%);
+}
+
+.weatherIcon {
+  color: #4284ed;
+}
+
+.weeklyHeader {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 1.5rem;
+}
+
+.daysList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.dayItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.temps {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: #666666;
+}
+
+.dayRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #1a1a1a;
+  font-weight: 500;
+}
+
+.highTemp {
+  color: #1a1a1a;
+  font-weight: 500;
+}
+
+.lowTemp {
+  color: #666666;
+}

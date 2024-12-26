@@ -1,0 +1,42 @@
+.hourlyContainer {
+  padding: 1.5rem;
+  background-color: #ffffff;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
+}
+
+.weatherIcon {
+  color: #4284ed;
+}
+
+.timeHeader {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 1rem;
+}
+
+.hourlyGrid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 1rem;
+  padding: 1rem 0;
+}
+
+.hourlyItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.timeText {
+  font-size: 0.875rem;
+  color: #666666;
+}
+
+.temperature {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #1a1a1a;
+}
